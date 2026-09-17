@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Wipon Scrum</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="https://telegram.org/js/telegram-web-app.js?63"></script>
+  </head>
+  <body>
+    <div id="loading" class="screen-message">
+      <div class="spinner"></div>
+      <p>Загружаю Scrum…</p>
+    </div>
+
+    <div id="fatal" class="screen-message hidden">
+      <div class="fatal-icon">!</div>
+      <h1>Не удалось открыть приложение</h1>
+      <p id="fatal-text"></p>
+    </div>
+
+    <main id="app" class="app hidden">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">WIPON SCRUM</p>
+          <h1 id="greeting">Добрый день</h1>
+          <p id="user-role" class="muted"></p>
+        </div>
+        <div id="avatar" class="avatar">A</div>
+      </header>
+
+      <section class="status-card">
+        <div>
+          <p class="muted small">Сегодня</p>
+          <p id="today-date" class="status-date"></p>
+        </div>
+        <div id="own-status" class="status-pill pending">Не заполнен</div>
+      </section>
+
+      <nav class="tabs" aria-label="Разделы">
+        <button class="tab active" data-tab="daily">Мой daily</button>
+        <button class="tab" data-tab="team">Команда</button>
+        <button id="summary-tab" class="tab hidden" data-tab="summary">AI-сводка</button>
+      </nav>
+
+      <section id="page-daily" class="page active">
+        <div class="section-heading">
+          <div>
+            <h2>Расскажите как есть</h2>
+            <p>Формат не важен — ИИ сам выделит нужное.</p>
+          </div>
+        </div>
+
+        <textarea
+          id="daily-text"
+          maxlength="10000"
+          placeholder="Например: вчера закончил API тарифов, сегодня подключаю аналитику. Жду доступ к production…"
+        ></textarea>
+        <div class="textarea-meta"><span id="char-count">0</span> / 10000</div>
+
+        <button id="analyze-button" class="primary-button">
+          <span>✨</span> Разобрать отчёт
+        </button>
+
+        <div id="preview" class="preview hidden">
+          <div class="preview-title">
+            <div>
+              <p class="eyebrow">ПРЕДПРОСМОТР</p>
+              <h2>Я понял отчёт так</h2>
+            </div>
+            <span id="ai-badge" class="ai-badge">AI</span>
+          </div>
+          <div id="structured-sections"></div>
+          <button id="save-button" class="primary-button success-button">Сохранить daily</button>
+        </div>
+      </section>
+
+      <section id="page-team" class="page">
+        <div class="team-summary">
+          <div class="progress-ring" id="progress-ring"><span id="progress-value">0%</span></div>
+          <div>
+            <h2>Статус команды</h2>
+            <p id="team-count" class="muted"></p>
+          </div>
+        </div>
+        <div class="filters">
+          <button class="filter active" data-filter="all">Все</button>
+          <button class="filter" data-filter="submitted">Сдали</button>
+          <button class="filter" data-filter="missing">Не сдали</button>
+        </div>
+        <div id="team-list" class="team-list"></div>
+      </section>
+
+      <section id="page-summary" class="page">
+        <div class="section-heading">
+          <div>
+            <h2>AI-сводка команды</h2>
+            <p>Направления, блокеры, риски и статусы сотрудников.</p>
+          </div>
+        </div>
+        <button id="summary-button" class="primary-button"><span>✨</span> Получить сводку</button>
+        <div id="summary-content" class="summary-content"></div>
+      </section>
+
+      <div id="toast" class="toast hidden"></div>
+    </main>
+
+    <script src="./config.js"></script>
+    <script src="./app.js" defer></script>
+  </body>
+</html>
